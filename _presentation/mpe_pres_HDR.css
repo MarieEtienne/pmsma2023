@@ -1,0 +1,497 @@
+@import url(https://fonts.googleapis.com/css?family=Fira+Sans:300,300i,400,400i,500,500i,700,700i);
+@import url(https://cdn.rawgit.com/tonsky/FiraCode/1.204/distr/fira_code.css);
+
+body {
+  font-family: 'Fira Sans','Droid Serif', 'Palatino Linotype', 'Book Antiqua', Palatino, 'Microsoft YaHei', 'Songti SC', serif;
+}
+
+.addspace {
+  padding-top: 1em;
+}
+/* Math specificities*/
+.theorem {
+  padding-top: 1em;
+  display: block;
+  font-style: italic;
+  font-family: "avenir";
+  color: black;
+}
+
+.theorem::before {
+  content: "Theorem: ";
+  color: #c94326;
+  font-weight: bold;
+  font-style: normal;
+}
+.theorem[text]::before {
+  content: "Theorem (" attr(text) ") ";
+}
+.theorem p {
+  display: inline;
+}
+
+
+/* for background image in title slide */
+.title-slide {
+  background-image: url("background.png");
+  background-size: cover;
+}
+
+/*p:small text in bibliography*/
+.p:biblio {
+  font-size: 12px;
+}
+
+/* to add symbol at the top*/
+.logopos_right {
+  position: absolute;
+  top: 1%;
+  left: 2%;
+}
+
+.logopos_left {
+  position: absolute;
+  top: 1%;
+  left: 94%;
+}
+/*  add a side by side images */
+
+.column {
+  float: left;
+  width: 45%;
+  padding: 5px;
+}
+
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+
+
+.remark-code, .remark-inline-code {
+  font-family: 'Fira Code', 'Lucida Console', Monaco, monospace;
+  font-size: 70%;
+}
+
+
+a, a > code {
+  color: #B40F20;
+  text-decoration: none;
+}
+.footnote {
+  position: absolute;
+  bottom: 3em;
+  padding-right: 4em;
+  font-size: 90%;
+}
+
+
+.remark-code-line-highlighted     { background-color: #e2dd95; }
+
+.highlight { 
+  color: #B40F20; 
+  font-weight: 400;
+  font-size: 150%;
+  
+  
+}
+
+
+.inverse {
+  background-color: #1A292C;
+  color: #0e8192;
+  text-shadow: 0 0 20px #333;
+}
+
+
+.question {
+  background-color: #ecefef;
+  color: #C94326;
+  text-align: center;
+  align-content: center;
+  font-size: 110%;
+  
+}
+
+/* Figure behaviour*/ 
+.centerimg{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
+.legend{
+  font-size: 15px;
+  font-style: italic;
+  text-align: center;
+  }
+  
+
+
+
+.care {
+  color: #C94326;
+  font-weight: 700;
+}
+
+.inverse h1, .inverse h2, .inverse h3 {
+  color: #DCFFC5;
+}
+
+
+
+/* Two-column layout */
+.left-column {
+  color: #777;
+  width: 58%;
+  height: 92%;
+  float: left;
+}
+.left-column h2:last-of-type, .left-column h3:last-child {
+  color: #000;
+}
+.right-column {
+  width: 38%;
+  float: right;
+  padding-top: 1em;
+}
+.pull-left {
+  float: left;
+  width: 47%;
+}
+.pull-right {
+  float: right;
+  width: 47%;
+}
+
+
+.pull-lefts {
+  float: left;
+    width: 42%;
+
+}
+.pull-rightb {
+  float: right;
+  width: 57%;
+}
+.pull-right + * {
+  clear: both;
+}
+img, video, iframe {
+  max-width: 100%;
+}
+blockquote {
+  border-left: solid 5px lightgray;
+  padding-left: 1em;
+}
+.remark-slide table {
+  margin: auto;
+  border-top: 1px solid #666;
+  border-bottom: 1px solid #666;
+}
+.remark-slide table thead th { border-bottom: 1px solid #ddd; }
+th, td { padding: 2px; }
+.remark-slide thead, .remark-slide tfoot, .remark-slide tr:nth-child(even) { background: #eee }
+
+@page { margin: 0; }
+@media print {
+  .remark-slide-scaler {
+    width: 100% !important;
+    height: 100% !important;
+    transform: scale(1) !important;
+    top: 0 !important;
+    left: 0 !important;
+  }
+}
+
+.remark-slide-content {
+  background-color: #FAFAFA;
+  border-top: 60px solid #33658A;
+  font-size: 19px;
+  font-weight: 300;
+  line-height: 1.5;
+  padding: 1% 2em 1em 2em
+}
+
+
+
+.title-slide .inverse .remark-slide-content {
+  background-color: #FAFAFA;
+}
+
+.inverse {
+  background-color: #FAFAFA;
+  border-top: 60px solid #DCFFC5;
+  font-size: 17px;
+  font-weight: 300;
+  line-height: 1.5;
+  padding: 3% 2em 1em 2em;
+  text-shadow: none;
+}
+
+/* Removes colored bar from top of the slide resulting in a clear slide */
+.clear{
+  border-top: 0px solid #FAFAFA;
+}
+
+
+
+h1 {
+  font-weight: normal;
+  margin-top: -60px;
+  margin-left: -00px;
+  color: #F7A913;
+}
+
+h2  {
+  padding-top: -15px;
+  padding-bottom: 00px;
+  color: #46ACC8;
+  text-shadow: none;
+  font-weight: 400;
+  text-align: left;
+  margin-left: 00px;
+  margin-bottom: -10px;
+}
+
+
+h3, h4 {
+  padding-top: -15px;
+  padding-bottom: 00px;
+  color: #B40F20;
+  text-shadow: none;
+  font-weight: 400;
+  text-align: left;
+  margin-left: 00px;
+  margin-bottom: -10px;
+}
+.remark-slide-content h1 {
+  font-size: 27px;
+  position: absolute;
+  left:10%;
+}
+
+.remark-slide-content h2 {
+  font-size: 23px;
+  color: #33658A;
+}
+
+.remark-slide-content h3 {
+  font-size: 20px;
+}
+
+.left-column h2, .left-column h3, .left-column h4 {
+  color: #777;
+}
+
+.left-column h2:last-of-type, .left-column h3:last-child {
+  color: #1A292C;
+}
+
+.title-slide {
+  background-color: #FAFAFA;
+  border-top: 80px solid #FAFAFA;
+  color: #DCFFC5;
+ 
+}
+
+
+.title-slide h1  {
+  color: #33658A;
+  font-size: 40px;
+  text-shadow: none;
+  font-weight: 400;
+  text-align: center;
+  margin-left: 15px;
+  margin-top: -200px;
+  padding-top:80px;
+}
+.title-slide h2  {
+  margin-top: -25px;
+  padding-bottom: -20px;
+  color: #1F908E;
+  text-shadow: none;
+  font-weight: 300;
+  font-size: 35px;
+  text-align: center;
+  margin-left: 15px;
+}
+.title-slide h3  {
+  color: #1F908E;
+  text-shadow: none;
+  font-weight: 300;
+  font-size: 25px;
+  text-align: right;
+  margin-left: 15px;
+  margin-bottom: -30px;
+}
+
+hr, .title-slide h2::after, .mline h1::after {
+  content: '';
+  border: none;
+  height: 1px;
+}
+
+hr, .mline h1::after {
+  margin: 1em 13px 0 15px;
+}
+
+.title-slide h2::after {
+  margin: 10px 13px 35px 0;
+}
+
+.mline h1::after {
+  margin: 10px 13px 0 15px;
+}
+
+.remark-slide-number {
+  font-size: 10pt;
+  color: #272822;
+  opacity: 1;
+}
+
+.inverse .remark-slide-number {
+  font-size: 11pt;
+  color: #FAFAFA;
+  opacity: 1;
+}
+
+/* turns off slide numbers for title page: https://github.com/gnab/remark/issues/298 */
+.title-slide .remark-slide-number {
+  display: none;
+}
+
+.remark-inline-code {
+  /* background: #F5F5F5; /* lighter */
+  background: #e7e8e2; /* darker */
+  border-radius: 3px;
+  padding: 4px;
+}
+
+.hljs-github .hljs {
+    display: block;
+    overflow-x: auto;
+    padding: .5em;
+    color: #333;
+    background: #d4e7ed;
+}
+
+
+.code10 .remark-code {
+  font-size: 10%;
+}
+
+.code20 .remark-code {
+  font-size: 20%;
+}
+
+.code30 .remark-code {
+  font-size: 30%;
+}
+
+.code40 .remark-code {
+  font-size: 40%;
+}
+
+.code50 .remark-code {
+  font-size: 50%;
+}
+
+.code60 .remark-code {
+  font-size: 60%;
+}
+
+.code70 .remark-code {
+  font-size: 70%;
+}
+
+.code80 .remark-code {
+  font-size: 80%;
+}
+
+.code90 .remark-code {
+  font-size: 90%;
+}
+
+.code100 .remark-code {
+  font-size: 100%;
+}
+
+.font10 {
+  font-size: 10%;
+}
+
+.font20 {
+  font-size: 20%;
+}
+
+.font30 {
+  font-size: 30%;
+}
+
+.font40 {
+  font-size: 40%;
+}
+
+.font50 {
+  font-size: 50%;
+}
+
+.font60 {
+  font-size: 60%;
+}
+
+.font70 {
+  font-size: 70%;
+}
+
+.font80 {
+  font-size: 80%;
+}
+
+.font90 {
+  font-size: 90%;
+}
+
+.font100 {
+  font-size: 100%;
+}
+
+.font110 {
+  font-size: 110%;
+}
+
+.font120 {
+  font-size: 120%;
+}
+
+.font130 {
+  font-size: 130%;
+}
+
+.font140 {
+  font-size: 140%;
+}
+
+.font150 {
+  font-size: 150%;
+}
+
+.font160 {
+  font-size: 160%;
+}
+.font170 {
+  font-size: 170%;
+}
+.font180 {
+  font-size: 180%;
+}
+.font190 {
+  font-size: 190%;
+}
+.font200 {
+  font-size: 200%;
+}

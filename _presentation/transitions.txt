@@ -1,0 +1,45 @@
+
+INTRO:
+There is a biological question at the beginning of most of my research project.
+
+To address this question, using data, I will first start to formalize it into a statistical framework
+
+
+
+by doing so, you may relaize that there are relevant statistical method to analyze your data and no need for statiscal development. But il also happen, that there is no statisfying statistical methods to analyse the data, and heres start the research in applied statistics.
+
+The first steps consists in building a model to represent the data. By doing so, you will face choices
+- you can go for simple model, whhich have the advantage of be being mathematically tractable but may lack of biolgical realism
+- or you can go for very complex model which aims at representing most of the biological mecanisms involved in you system. This monster model will be difficult or even impossible to inform with the data.
+There is of course a trade off betwen these extremes position, I will illustrate that this trade off also depends on the futur use of the model.
+
+- I will illustrate the potential of Hierarchical model to propose parsimonious model for complex with an application in marine ecology which borow data from fisheries.
+France is committed to classify 30% of its terrestrial waters in Marine Protected area before 2022 
+
+- one aspect of the statistics 
+
+ I will start my presentation by illustrating the potential of hierachical to propose parsimonious model of complex data. 
+
+
+
+
+
+
+Transition Model to test.
+
+The proposed model is moderately complex and is well suited to represent the process of interest. 
+As I have mentioned in the introduction, the trade off between complexity and biological realism is always a choice and depnds on the futur use of the model. 
+
+A simple model might be useful as a null model in a context of hypothesis testing and that was the point of view chosen during my PhD thesis. 
+
+
+
+Transition test to movement.
+Including more biological realism in the models we consider may increase their complexity. In the last part of my talk I will try to illustrate how to increase the biological meaning of a model, without  transforming it into some sort of untractable monster.
+
+
+
+
+
+
+Transit

@@ -1,12 +1,12 @@
 ---
-title: exemple cours
+title: "Statistical methods for  movement ecology"
 author: Marie-Pierre Etienne
-date: '2023/03/01 (updated: `r Sys.Date()`)'
-institute: https://github.com/marieetienne
-csl: ../courses_tools/resources/apa-no-doi-no-issue.csl
+institute: "Ecodep"
+date: "2022"
+csl: "../resources/apa-no-doi-no-issue.csl"
 output:
-  xaringan::moon_reader:
-    css: [  'metropolis',  'mpe_pres.css']
+   xaringan::moon_reader:
+    css: ['metropolis',  'mpe_pres_HDR.css']
     lib_dir: libs
     nature:
       ratio: 16:10
@@ -14,48 +14,538 @@ output:
       highlightLines: true
       countIncrementalSlides: false
       beforeInit: '../courses_tools/resources/collapseoutput.js'
-    includes:
-      after_body: '../courses_tools/resources/insert-logo.html'
-fontsize: 10pt
-params:
-  child_path: ''
-  setup_path: ../courses_tools/resources/
 ---
+name: intro
+
+<!-- F1D763 -->
+<!-- F7A913 -->
+<!-- C94326 -->
+<!-- 1F908E -->
+<!-- 33658A -->
 
 
 
-```{r setup, include=FALSE, eval = TRUE}
-source(paste0(params$setup_path, "knitr_setup.R"))
-with_sol <- TRUE ## in order to control the output
-with_course <- TRUE
-library('flipbookr')
-library(RefManageR)
-library(tidyverse)
-library(ggplot2)
-```
-
-```{r xaringanExtra-share-again, echo=FALSE}
-xaringanExtra::use_share_again()
-```
-
-```{r reference,  include=FALSE, cache=FALSE, eval = TRUE}
+```{r setup, include = FALSE,  eval = TRUE}
+library('RefManageR')
+main_dir <-  '..'
+common_img_dir <- file.path(main_dir,'courses_tools','resources', 'common_figs')
+course_img_dir <- file.path(main_dir,'resources', 'figs')
 BibOptions(check.entries = FALSE,
            bib.style = "authoryear",
-           cite.style = "alphabetic",
+           cite.style = "authoryear",
            style = "markdown",
-           hyperlink = FALSE,
-           dashed = FALSE)
-# myBib <- ReadBib("./lm.bib", check = FALSE)
+           hyperlink = TRUE,
+           max.names = 3,
+           longnamesfirst= FALSE, 
+           dashed = TRUE)
+myBib <- ReadBib('biblio_soutenance.bib', check = FALSE)
 ```
 
-name: intro
-# Introduction - test
+```{r xaringan-fit-screen, echo=FALSE}
+xaringanExtra::use_fit_screen()
+```
+
+<!-- # Why do I enjoy research in statistics  ? -->
+<!-- -- -->
+
+
+
+<!-- <div class= "addspace"> -->
+<!-- <li> Working with researchers from different background,</li> -->
+<!-- </div> -->
+
+<!-- <div class= "addspace"> -->
+<!-- <li> Never left the school system, </li> -->
+<!-- </div> -->
+
+
+<!-- <div class= "addspace"> -->
+<!-- <li> Continnuously learning new concepts, methods, tools  </li> -->
+<!-- </div> -->
+
+<!-- <div class= "addspace"> -->
+<!-- <li> being confortable with my inside geek part.  </li> -->
+<!-- </div> -->
+
+
+
+# Movement ecology paradigm
+<img class="logopos_right" src="compute.png" style="height:6%">
+<img class="logopos_left" src="paw.png" style="height:7%">
+
+##  `r Citep(myBib, 'nathan2008movement')` presents individual movement as the results of
+
+.pull-left[
+<figure>
+  <img src="nathan_fig.png" alt="at the beginning is" style="width:100%" class = "centerimg" />
+</figure>
+.legend[  Movement drivers by `r Citet(myBib, "nathan2008movement")` ]
+]
+
+.pull-right[
+
+* Motion capacities
+* Internal state
+* Environment
+]
+  
+--
+
+.question[Movement informs on internal states and habitat preferences]
+
+---
+name: move2data
+# From Movement to Movement data
+
+
+--
+
+
+.pull-left[
+<figure>
+  <img src="path_1.png" alt="at the beginning is" style="width:100%" class = "centerimg" />
+</figure>
+]
+
+---
+template: move2data
+count: false
+
+
+.pull-left[
+<figure>
+  <img src="path_2.png" alt="at the beginning is" style="width:100%" class = "centerimg" />
+</figure>
+]
+
+
+---
+template: move2data
+count: false
+
+
+.pull-left[
+<figure>
+  <img src="path_3.png" alt="at the beginning is" style="width:100%" class = "centerimg" />
+</figure>
+]
+
+---
+template: move2data
+count: false
+
+
+.pull-left[
+<figure>
+  <img src="path_p3.png" alt="at the beginning is" style="width:100%" class = "centerimg" />
+</figure>
+]
+
+--
+
+.pull-right[
+A continuous process sampled at some discrete potentially irregular times.
+
+Time series with values in $\mathbb{R}^2$ (on earth ...).
+
+$$\begin{array}\\ 
+ \mbox{Time} & \mbox{Location} & \mbox{Turning angle} & \mbox{Speed}\\
+t_{0} & (x_0, y_0) & NA & NA\\
+t_{1} & (x_1, y_1) & NA & sp_1\\
+t_{2} & (x_2, y_2) & ang_2 & sp_2\\
+\vdots & \vdots& \vdots& \vdots \\
+t_{n} & (x_n, y_n) & ang_n & sp_n\\\\
+\end{array}$$
+]
+
+
+
+
+---
+# Ecological questions 
+
+  
+
+.pull-left[
+
+## Behavioural ecology
+
+<figure>
+  <img src="traj_seg_booby_black.png" alt="at the beginning is" style="width:90%" class = "centerimg" />
+.legend[Peruvian booby  data courtesy of Sophie Bertrand]
+</figure>
+]
+
+
+
+
+---
+# Ecological questions 
+
+
+
+.pull-left[
+
+## Behavioural ecology  
+
+<figure>
+  <img src="traj_seg_booby.png" alt="at the beginning is" style="width:90%" class = "centerimg" />
+.legend[Peruvian booby  data courtesy of Sophie Bertrand]
+</figure>
+]
+
+--
+
+.pull-right[
+
+## Habitat preference 
+
+<figure>
+  <img src="SSL_covs.png" alt="at the beginning is" style="width:100%" class = "centerimg" />
+.legend[Sea Lions habitat description]
+</figure>
+]
+
+
+
+---
+name: data2model
+# From Movement Data to Movement Model
+
+--
+
+Often analysed using discrete time model  `r Citep(myBib, "mcclintock2014discrete")`
+
+--
+
+<figure>
+  <img src="move_decomposition.png" alt="at the beginning is" style="width:90%" class = "centerimg" />
+.legend[Movement decomposition]
+</figure>
+
+
+
+
+---
+name:signal
+
+# Signal processing methods 
+--
+
+##  Heterogeneity in movement pattern interpretated as different internal states
+
+.pull-left[
+<figure>
+  <img src="traj_seg_booby.png" alt="at the beginning is" style="width:90%" class = "centerimg" />
+.legend[Peruvian booby  data courtesy of Sophie Bertrand]
+</figure>
+]
+
+.pull-right[
+## Accounting for internal states
+
+ * Classically addressed with Hidden Markov Model `r Citep(myBib, c("morales2004extracting", "walker2010pioneer", "gurarie2009novel", "michelot2016movehmm"))`
+
+ * or change point detection approach. `r Citep(myBib, "patin2019identifying")` based on `r Citep(myBib, "picard2007segmentation")`
+]
 
 ---
 
-```{r ggplot_back, echo = FALSE, eval = TRUE}
-ggplot <- function(...) ggplot2::ggplot(...) 
+template: signal
+
+
+
+.pull-left[
+<figure>
+  <img src="segmentation.png" alt="at the beginning is" style="width:90%" class = "centerimg" />
+.legend[Change point detection `r Citep(myBib, "patin2019identifying")`]
+</figure>
+]
+
+
+--
+.pull-right[
+<figure>
+  <img src="seg_classification.png" alt="at the beginning is" style="width:90%" class = "centerimg" />
+ .legend[Change point detection and classification `r Citep(myBib, "patin2019identifying")`]
+</figure>
+]
+
+--
+
+In  `r Citep(myBib, "patin2019identifying")` : a direct extension to simultaneous segmentation for home range shift.
+--
+
+
+.question[Movement path is more than time series, importance of considering the space.]
+
+--
+
+.center[.care[Proposing ecologically meaningful movement models]]
+
+Pros and cons of  Discrete time versus continuous time movement models  discussed in `r Citet(myBib, 'mcclintock2014discrete')` 
+
+---
+
+# Potential based Diffusions as continuous time movement model 
+
+Let  $(X_s)_{s\geq0}\in\mathbb{R}^2$ denote the position at time $s$.
+
+.pull-left[
+* Brownian motion: a pure diffusion model
+$$dX_s = dW_s, \quad X_0=x_0.$$
+<figure>
+  <img src="bm.png" alt="at the beginning is" style="width:60%" class = "centerimg" />
+</figure>
+]
+
+--
+.pull-left[
+* Ornstein Uhlenbeck process: central place behavior
+$$dX_s = -B (X_s- \mu) ds + dW_s, \quad X_0=x_0.$$
+
+<figure>
+  <img src="ou.png" alt="at the beginning is" style="width:60%" class = "centerimg" />
+</figure>
+]
+
+
+Popular models as  Brownian Motion and Ornstein Uhlenbeck have known transition densities 
+$q(x_t, x_{t+s})$ which is not the case in general.
+
+---
+
+
+# Potential based Diffusions as continuous time movement model 
+
+`r Citet(myBib,'brillinger2002employing')` propose a flexible framework
+$$dX_s = -\nabla H(X_s) ds + \gamma dW_s, \quad X_0=x_0.$$
+
+but no explicit transitions $q(x_t, x_{t+s})$
+
+--
+
+In `r Citet(myBib,'Gloaguen2018stochastic')`, as part  of *P. Gloaguen's PhD*, explore $H(X_s) = \sum_{k=1}^K \pi_k \varphi_k(X_s),$
+
+.pull-left[
+<figure>
+  <img src="map2.png" alt="at the beginning is" style="width:90%" class = "centerimg" />
+</figure>
+]
+
+--
+
+.pull-right[
+* Euler approximation : biased estimates with low frequency data
+* `r Citep(myBib, 'ozaki1992bridge')` and `r Citet(myBib,'kessler1997estimation')` same results than
+* MCEM based on exact simulation `r Citep(myBib, 'beskos2006exact')` limits the flexibility of the SDE.
+]
+
+
+---
+
+# Potential based Diffusions as continuous time movement model 
+<img class="logopos_right" src="compute.png" style="height:6%">
+<img class="logopos_left" src="paw.png" style="height:7%">
+
+
+## Partially observed SDE 
+.pull-lefts[
+  <img src="path_4.png" alt="at the beginning is" style="width:70%" class = "centerimg" />
+]
+
+--
+
+.pull-rights[
+Let  $Y_k$ be the recorded position $s_k$, a noisy observation of the true position $X_k$:
+
+$$dX_s = b(X_s) ds + \gamma dW_s, \quad X_0=x_0; \quad Y_k \overset{ind}{\sim} \mathcal{L} (X_k, \theta{o}).$$
+]
+
+--
+
+### Additive smoothing distributions for the E Step
+
+$$\sum_{k=0}^{n-1}\mathbb{E}( h(X_k, X_{k+1}) \vert Y_{0:n})$$
+
+--
+* The particle-based, rapid incremental smoother (PaRIS)  algorithm `r Citep(myBib, "olsson2017efficient")` provides  an online smoother using a rewriting of the Backward weight and an acceptation/rejection mechanism but depends on $q(\xi_{k-1}, \xi_{k})$
+
+* The generalized random PaRIS algorithm, in  `r Citep(myBib, "gloaguen2018online")`, uses simple Euler approximation to propose the particles and uses a General Poisson Estimator to replace $q(\xi_{k-1}, \xi_{k})$ with an unbiased estimator.
+
+--
+
+.care[Restrictive constraints on the drift and the diffusion term], are relaxed in `r Citep(myBib, "martin2021backward")`.
+
+
+---
+
+# Potential based Diffusions as continuous time movement model 
+
+## Flexible movement model for habitat preference
+
+<figure>
+  <img src="DAG1.png" alt="at the beginning is" style="width:80%" class = "centerimg" />
+</figure>
+
+
+---
+
+# Potential based Diffusions as continuous time movement model 
+
+## Flexible movement model for habitat preference
+
+
+<figure>
+  <img src="DAG2.png" alt="at the beginning is" style="width:80%" class = "centerimg" />
+   .legend[Flexible movement model which accounts for environment]
+</figure>
+
+
+<!-- --- -->
+<!-- template: movement -->
+<!-- ## Flexible movement model -->
+
+<!-- <figure> -->
+<!--   <img src="DAG3.png" alt="at the beginning is" style="width:80%" class = "centerimg" /> -->
+<!--    <figcaption> Flexible non homogeneous movement model</figcaption> -->
+<!-- </figure> -->
+
+
+
+
+
+---
+
+# Potential based Diffusions as continuous time movement model 
+
+## Flexible movement model for habitat preference
+
+A classical choice of **resource selection function**, (i.e stationary distribution including covariates)
+$$\pi{\left(x \vert \beta\right)} \varpropto  \exp\left(\sum_{j=1}^J \beta_j c_j (x) \right). $$ 
+
+Diffusion, under regularity condition admits a stationary  distribution.  
+
+--
+
+Combining the ideas of `r Citep(myBib, "michelot2019linking")`, and  `r Citep(myBib, "brillinger2002employing")` lead to the Langevin diffusion as movement model, 
+$$
+	d X_t = \frac{\gamma^2}{2} \nabla \log \pi{\left(X_t\right)} \, d t + \gamma \,d W_t,\quad X_0 =x_0.
+$$
+--
+
+Using Euler approximation 
+
+$$	X_{i+1} \vert \lbrace X_i = x_i \rbrace = 
+    	x_i + \frac{\gamma^2 \Delta_i}{2} \sum_{j=1}^J \beta_j \nabla c_j(x_i) + \sqrt{\Delta_i}  \varepsilon_{i+1},\quad 
+    	\varepsilon_{i+1} \overset{ind}{\sim} N \left( {0} , \gamma^2 \boldsymbol{I}_d \right),$$
+
+leads to a simple linear model published in `r Citet(myBib,"michelot2019langevin")`.
+    	
+    	
+    	
+---
+
+# Potential based Diffusions as continuous time movement model 
+
+## Flexible movement model for habitat preference
+
+
+.pull-left[
+<figure>
+  <img src="SSL_covs.png" alt="at the beginning is" style="width:100%" class = "centerimg" />
+.legend[Sea Lions habitat description]
+</figure>
+]
+
+--
+
+.pull-right[
+
+<figure>
+  <img src="SSL_logUD.png" alt="at the beginning is" style="width:100%" class = "centerimg" />
+.legend[Sea Lions habitat description]
+</figure>
+]
+
+--
+
+.small[ On going work on Sea birds in the Mediteranean sea and Roe deer next to Toulouse]
+---
+# On going work
+
+### Some natural extension of the Langevin model useful in movement ecology
+
+* Coupling Hidden Markov model or change point detection model with a Langevin distribution:
+<figure>
+  <img src="DAG4.png" alt="at the beginning is" style="width:60%" class = "centerimg" />
+</figure>
+
+* Change the Langevin model for an hypoellitptic approach
+$$d X_t = V_t dt; X_0 =x_0.$$
+
+$$d V_t = - \nabla \log \pi{\left(X_t\right)} \, d t  -\frac{\nu^2}{2} V_t + \nu \,d W_t,\quad $$
+
+---
+# Perspectives 
+
+### Some natural extension of the Langevin model useful in movement ecology
+
+* Introduction of an individual random effect,
+
+###  Handling categorical covariates
+`r Citet(myBib, "lejay2018maximum")` define a threshold diffusion and proposes an ML estimation method. Explore the generalisation to $\mathbb{R}^2$. 
+
+### Longer term perspective
+* Collective movement: Cheaper GPS imply  massive deployment. Invest the area of collective movement analysis.
+* Combined sound monitoring
+
+
+---
+# A few words to finish
+
+
+* Close interaction with biologist,
+  - it's helpful,
+  - provides exciting statistical problems,
+  - experiment a large diversity of approaches.
+* Hidden variables approach
+  - provide flexible models (spatial abundance, classification in time series, Partially observed SDE)
+  - popularized in Ecology in a Bayesian setting but frequentist approach is also possible
+* The Markovian property
+  - not so realistic,
+  - but a key component in both theoretical approach and computational aspects
+
+
+
+
+---
+class: biblio
+# Bibliography
+<img class="logopos_right" src="article.png" style="height:6%">
+
+```{r refs, echo=FALSE, results="asis", eval = TRUE, cache = FALSE}
+PrintBibliography(myBib, start = 1, end = 7)
+```
+
+---
+class: biblio
+count: false
+# Bibliography
+<img class="logopos_right" src="article.png" style="height:6%">
+
+```{r refs_2, echo=FALSE, results="asis", eval = TRUE, cache = FALSE}
+PrintBibliography(myBib, start = 8, end = 14)
 ```
 
 
+---
+class: biblio
+count: false
+# Bibliography
+<img class="logopos_right" src="article.png" style="height:6%">
+
+```{r refs_3, echo=FALSE, results="asis", eval = TRUE, cache = FALSE}
+PrintBibliography(myBib, start = 15, end = 16)
+```
 
