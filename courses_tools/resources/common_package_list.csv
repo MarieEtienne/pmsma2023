@@ -1,0 +1,11 @@
+repo,name,category
+cran,remotes,system
+cran,devtools,system
+cran,tidyverse,data wrangling
+cran,ggplot2,graphic
+cran,wesanderson,graphic
+cran,rmarkdown,reporting
+cran,RefManageR,reporting
+yihui,xaringan,reporting
+EvaMaeRey,flipbookr,reporting
+gadenbuie,xaringanExtra,reporting
