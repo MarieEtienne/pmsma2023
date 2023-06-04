@@ -1,0 +1,61 @@
+---
+title: exemple cours
+author: Marie-Pierre Etienne
+date: '2023/03/01 (updated: `r Sys.Date()`)'
+institute: https://github.com/marieetienne
+csl: ../courses_tools/resources/apa-no-doi-no-issue.csl
+output:
+  xaringan::moon_reader:
+    css: [  'metropolis',  'mpe_pres.css']
+    lib_dir: libs
+    nature:
+      ratio: 16:10
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      beforeInit: '../courses_tools/resources/collapseoutput.js'
+    includes:
+      after_body: '../courses_tools/resources/insert-logo.html'
+fontsize: 10pt
+params:
+  child_path: ''
+  setup_path: ../courses_tools/resources/
+---
+
+
+
+```{r setup, include=FALSE, eval = TRUE}
+source(paste0(params$setup_path, "knitr_setup.R"))
+with_sol <- TRUE ## in order to control the output
+with_course <- TRUE
+library('flipbookr')
+library(RefManageR)
+library(tidyverse)
+library(ggplot2)
+```
+
+```{r xaringanExtra-share-again, echo=FALSE}
+xaringanExtra::use_share_again()
+```
+
+```{r reference,  include=FALSE, cache=FALSE, eval = TRUE}
+BibOptions(check.entries = FALSE,
+           bib.style = "authoryear",
+           cite.style = "alphabetic",
+           style = "markdown",
+           hyperlink = FALSE,
+           dashed = FALSE)
+# myBib <- ReadBib("./lm.bib", check = FALSE)
+```
+
+name: intro
+# Introduction - test
+
+---
+
+```{r ggplot_back, echo = FALSE, eval = TRUE}
+ggplot <- function(...) ggplot2::ggplot(...) 
+```
+
+
+

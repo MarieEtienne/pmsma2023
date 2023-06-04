@@ -1,0 +1,3 @@
+[submodule "courses_tools"]
+	path = courses_tools
+	url = git@github.com:MarieEtienne/courses_tools.git
