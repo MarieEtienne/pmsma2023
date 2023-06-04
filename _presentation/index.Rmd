@@ -1,7 +1,7 @@
 ---
-title: "Statistical methods for  movement ecology"
+title: "(Hidden) Markovian Model for movement ecology "
 author: Marie-Pierre Etienne
-institute: "Ecodep"
+institute: "Processus markoviens, semi-markoviens et leurs applications"
 date: "2022"
 csl: "../resources/apa-no-doi-no-issue.csl"
 output:
