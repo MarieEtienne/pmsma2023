@@ -4,11 +4,11 @@
     <title>(Hidden) Markovian Model for movement ecology</title>
     <meta charset="utf-8" />
     <meta name="author" content="Marie-Pierre Etienne" />
-    <meta name="date" content="2022-01-01" />
+    <meta name="date" content="2023-01-01" />
     <script src="libs/header-attrs-2.11/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/metropolis.css" rel="stylesheet" />
     <script src="libs/xaringanExtra_fit-screen-0.2.6/fit-screen.js"></script>
-    <link rel="stylesheet" href="mpe_pres_HDR.css" type="text/css" />
+    <link rel="stylesheet" href="mpe_pres.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
@@ -17,7 +17,7 @@ class: center, middle, inverse, title-slide
 # (Hidden) Markovian Model for movement ecology
 ### Marie-Pierre Etienne
 ### Processus markoviens, semi-markoviens et leurs applications
-### 2022
+### 2023
 
 ---
 
@@ -234,42 +234,43 @@ name:signal
 .pull-right[
 ## Accounting for internal states
 
- * Classically addressed with Hidden Markov Model &lt;a name=cite-morales2004extracting&gt;&lt;/a&gt;&lt;a name=cite-walker2010pioneer&gt;&lt;/a&gt;&lt;a name=cite-gurarie2009novel&gt;&lt;/a&gt;&lt;a name=cite-michelot2016movehmm&gt;&lt;/a&gt;([Morales, Haydon, Frair, et al., 2004](#bib-morales2004extracting); [Walker and Bez, 2010](#bib-walker2010pioneer); [Gurarie, Andrews, and Laidre, 2009](#bib-gurarie2009novel); [Michelot, Langrock, and Patterson, 2016](#bib-michelot2016movehmm))
+ * Change point detection approach. &lt;a name=cite-patin2019identifying&gt;&lt;/a&gt;([Patin, Etienne, Lebarbier, et al., 2019](#bib-patin2019identifying)) based on &lt;a name=cite-picard2007segmentation&gt;&lt;/a&gt;([Picard, Robin, Lebarbier, et al., 2007](#bib-picard2007segmentation))
 
- * or change point detection approach. &lt;a name=cite-patin2019identifying&gt;&lt;/a&gt;([Patin, Etienne, Lebarbier, et al., 2019](#bib-patin2019identifying)) based on &lt;a name=cite-picard2007segmentation&gt;&lt;/a&gt;([Picard, Robin, Lebarbier, et al., 2007](#bib-picard2007segmentation))
+ * More classically addressed with Hidden Markov Model &lt;a name=cite-morales2004extracting&gt;&lt;/a&gt;&lt;a name=cite-walker2010pioneer&gt;&lt;/a&gt;&lt;a name=cite-gurarie2009novel&gt;&lt;/a&gt;&lt;a name=cite-michelot2016movehmm&gt;&lt;/a&gt;([Morales, Haydon, Frair, et al., 2004](#bib-morales2004extracting); [Walker and Bez, 2010](#bib-walker2010pioneer); [Gurarie, Andrews, and Laidre, 2009](#bib-gurarie2009novel); [Michelot, Langrock, and Patterson, 2016](#bib-michelot2016movehmm))
 ]
+
+`$$Y_k \vert S_{k} = i \overset{i.i.d}{\sim} \mathcal{L}(\theta_i),$$`
+`$$S_0 \sim \nu_0, \quad \mathbb{P}(S_k =j \vert S_k = i) = \pi_{ij}$$`
+--
+
+In ([Michelot, Langrock, and Patterson, 2016](#bib-michelot2016movehmm)), 
+
+`$$\mathbb{P}(S_k =j \vert S_k = i, Cov_{i}) \propto \exp \left \lbrace \beta Cov_i \right \rbrace$$`
+
 
 ---
-
 template: signal
 
+### Choosing the number of hidden states
+
+* Typically using likelihood based criteria  AIC, BIC ICL 
 
 
-.pull-left[
-&lt;figure&gt;
-  &lt;img src="segmentation.png" alt="at the beginning is" style="width:90%" class = "centerimg" /&gt;
-.legend[Change point detection ([Patin, Etienne, Lebarbier, et al., 2019](#bib-patin2019identifying))]
-&lt;/figure&gt;
-]
+.question[&lt;a name=cite-pohle2017selecting&gt;&lt;/a&gt;([Pohle, Langrock, Van Beest, et al., 2017](#bib-pohle2017selecting)) advocate that likelihood based criteria tend to overestimate the number of components and this number should be chosen according to biological considerations.]
 
 
---
-.pull-right[
-&lt;figure&gt;
-  &lt;img src="seg_classification.png" alt="at the beginning is" style="width:90%" class = "centerimg" /&gt;
- .legend[Change point detection and classification ([Patin, Etienne, Lebarbier, et al., 2019](#bib-patin2019identifying))]
-&lt;/figure&gt;
-]
+The main suspect : the strong parametric form of the emission model in classical HMM model in ecology 
 
 --
 
-In  ([Patin, Etienne, Lebarbier, et al., 2019](#bib-patin2019identifying)) : a direct extension to simultaneous segmentation for home range shift.
---
+A new hope: new non parametric approaches have been proposed &lt;a name=cite-lehericy2019consistent&gt;&lt;/a&gt;&lt;a name=cite-dechaumaray2022estimation&gt;&lt;/a&gt;([Lehéricy, 2019](#bib-lehericy2019consistent); [de
+Chaumaray, Kolei, and Marbac, 2022](#bib-dechaumaray2022estimation))
 
+
+--
 
 .question[Movement path is more than time series, importance of considering the space.]
 
---
 
 .center[.care[Proposing ecologically meaningful movement models]]
 
@@ -309,13 +310,13 @@ Popular models as  Brownian Motion and Ornstein Uhlenbeck have known transition 
 # Potential based Diffusions as continuous time movement model 
 
 &lt;a name=cite-brillinger2002employing&gt;&lt;/a&gt;[Brillinger, Preisler, Ager, et al. (2002)](#bib-brillinger2002employing) propose a flexible framework
-`$$dX_s = -\nabla H(X_s) ds + \gamma dW_s, \quad X_0=x_0.$$`
+`$$dX_s = -\nabla H_{\theta}(X_s) ds + \gamma dW_s, \quad X_0=x_0.$$`
 
-but no explicit transitions `\(q(x_t, x_{t+s})\)`
+but no explicit transitions `\(q_{\theta}(x_t, x_{t+s})\)`
 
 --
 
-In &lt;a name=cite-Gloaguen2018stochastic&gt;&lt;/a&gt;[Gloaguen, Etienne, and Le Corff (2018a)](#bib-Gloaguen2018stochastic), as part  of *P. Gloaguen's PhD*, explore `\(H(X_s) = \sum_{k=1}^K \pi_k \varphi_k(X_s),\)`
+In &lt;a name=cite-Gloaguen2018stochastic&gt;&lt;/a&gt;[Gloaguen, Etienne, and Le Corff (2018a)](#bib-Gloaguen2018stochastic), as part  of *P. Gloaguen's PhD*, explore `\(H_{\theta}(X_s) = \sum_{k=1}^K \pi_k \varphi_k(X_s),\)`
 
 .pull-left[
 &lt;figure&gt;
@@ -334,38 +335,6 @@ In &lt;a name=cite-Gloaguen2018stochastic&gt;&lt;/a&gt;[Gloaguen, Etienne, and L
 
 ---
 
-# Potential based Diffusions as continuous time movement model 
-&lt;img class="logopos_right" src="compute.png" style="height:6%"&gt;
-&lt;img class="logopos_left" src="paw.png" style="height:7%"&gt;
-
-
-## Partially observed SDE 
-.pull-lefts[
-  &lt;img src="path_4.png" alt="at the beginning is" style="width:70%" class = "centerimg" /&gt;
-]
-
---
-
-.pull-rights[
-Let  `\(Y_k\)` be the recorded position `\(s_k\)`, a noisy observation of the true position `\(X_k\)`:
-
-`$$dX_s = b(X_s) ds + \gamma dW_s, \quad X_0=x_0; \quad Y_k \overset{ind}{\sim} \mathcal{L} (X_k, \theta{o}).$$`
-]
-
---
-
-### Additive smoothing distributions for the E Step
-
-`$$\sum_{k=0}^{n-1}\mathbb{E}( h(X_k, X_{k+1}) \vert Y_{0:n})$$`
-
---
-* The particle-based, rapid incremental smoother (PaRIS)  algorithm &lt;a name=cite-olsson2017efficient&gt;&lt;/a&gt;([Olsson and Westerborn, 2017](#bib-olsson2017efficient)) provides  an online smoother using a rewriting of the Backward weight and an acceptation/rejection mechanism but depends on `\(q(\xi_{k-1}, \xi_{k})\)`
-
-* The generalized random PaRIS algorithm, in  &lt;a name=cite-gloaguen2018online&gt;&lt;/a&gt;([Gloaguen, Etienne, and Le Corff, 2018b](#bib-gloaguen2018online)), uses simple Euler approximation to propose the particles and uses a General Poisson Estimator to replace `\(q(\xi_{k-1}, \xi_{k})\)` with an unbiased estimator.
-
---
-
-.care[Restrictive constraints on the drift and the diffusion term], are relaxed in &lt;a name=cite-martin2021backward&gt;&lt;/a&gt;([Martin, Etienne, Gloaguen, et al., 2021](#bib-martin2021backward)).
 
 
 ---
@@ -412,7 +381,7 @@ Let  `\(Y_k\)` be the recorded position `\(s_k\)`, a noisy observation of the tr
 ## Flexible movement model for habitat preference
 
 A classical choice of **resource selection function**, (i.e stationary distribution including covariates)
-$$\pi{\left(x \vert \beta\right)} \varpropto  \exp\left(\sum_{j=1}^J \beta_j c_j (x) \right). $$ 
+$$\pi{\left(x \vert \theta\right)} \varpropto  \exp\left(\sum_{j=1}^J \theta_j c_j (x) \right). $$ 
 
 Diffusion, under regularity condition admits a stationary  distribution.  
 
@@ -420,14 +389,14 @@ Diffusion, under regularity condition admits a stationary  distribution.
 
 Combining the ideas of &lt;a name=cite-michelot2019linking&gt;&lt;/a&gt;([Michelot, Blackwell, and Matthiopoulos, 2019](#bib-michelot2019linking)), and  ([Brillinger, Preisler, Ager, et al., 2002](#bib-brillinger2002employing)) lead to the Langevin diffusion as movement model, 
 $$
-	d X_t = \frac{\gamma^2}{2} \nabla \log \pi{\left(X_t\right)} \, d t + \gamma \,d W_t,\quad X_0 =x_0.
+	d X_t = \frac{\gamma^2}{2} \nabla \log \pi_{\theta}{\left(X_t\right)} \, d t + \gamma \,d W_t,\quad X_0 =x_0.
 $$
 --
 
 Using Euler approximation 
 
 `$$	X_{i+1} \vert \lbrace X_i = x_i \rbrace = 
-    	x_i + \frac{\gamma^2 \Delta_i}{2} \sum_{j=1}^J \beta_j \nabla c_j(x_i) + \sqrt{\Delta_i}  \varepsilon_{i+1},\quad 
+    	x_i + \frac{\gamma^2 \Delta_i}{2} \sum_{j=1}^J \theta_j \nabla c_j(x_i) + \sqrt{\Delta_i}  \varepsilon_{i+1},\quad 
     	\varepsilon_{i+1} \overset{ind}{\sim} N \left( {0} , \gamma^2 \boldsymbol{I}_d \right),$$`
 
 leads to a simple linear model published in &lt;a name=cite-michelot2019langevin&gt;&lt;/a&gt;[Michelot, Etienne, Blackwell, et al. (2019)](#bib-michelot2019langevin).
@@ -461,7 +430,143 @@ leads to a simple linear model published in &lt;a name=cite-michelot2019langevin
 --
 
 .small[ On going work on Sea birds in the Mediteranean sea and Roe deer next to Toulouse]
+
 ---
+name: POD
+# Potential based Diffusions as continuous time movement model 
+&lt;img class="logopos_right" src="compute.png" style="height:6%"&gt;
+&lt;img class="logopos_left" src="paw.png" style="height:7%"&gt;
+
+
+## Partially observed SDE 
+.pull-left[
+  &lt;img src="path_4.png" alt="at the beginning is" style="width:70%" class = "centerimg" /&gt;
+]
+
+
+.pull-right[
+
+Let  `\(Y_k\)` be the recorded position `\(s_k\)`, a noisy observation of the true position `\(X_k\)`:
+
+`$$dX_s = b_{\theta}(X_s) ds + \gamma dW_s, \quad X_0=x_0;$$`
+`$$Y_k \overset{ind}{\sim} g_{\theta_o} (X_k).$$`
+]
+
+--
+
+&lt;figure&gt;
+  &lt;img src="DAG.png" alt="at the beginning is" style="width:80%" class = "centerimg" /&gt;
+.legend[DAG representation]
+&lt;/figure&gt;
+
+
+---
+template:POD
+
+### Estimation key quantity : additive smoothing distributions in E Step
+
+`$$\sum_{k=0}^{n-1}\mathbb{E}( h(X_k, X_{k+1}) \vert Y_{0:n})$$`
+---
+name: POD2
+# Potential based Diffusions as continuous time movement model 
+&lt;img class="logopos_right" src="compute.png" style="height:6%"&gt;
+&lt;img class="logopos_left" src="paw.png" style="height:7%"&gt;
+
+## Sequential method for fltering distribution : `\(\mathbb{E}( M(X_k) \vert Y_{0:k})\)`.
+
+--
+&lt;figure&gt;
+  &lt;img src="Filter.png" alt="at the beginning is" style="width:80%" class = "centerimg" /&gt;
+.legend[Particle Filter]
+&lt;/figure&gt;
+
+---
+template: POD2
+
+###  The problem with POD processes
+
+* `\(q^\theta(x, y, \Delta)\)` can't be computed (even when `\(\theta\)` is known);
+* This quantity is crucial for weights computation.
+
+--
+
+### General Poisson estimator ( &lt;a name=cite-fearnhead2008particle&gt;&lt;/a&gt;[Fearnhead, Papaspiliopoulos, and Roberts (2008)](#bib-fearnhead2008particle) )
+
+Under some assumptions, there exists an unbiased estimator `\(\class{\orange}{\hat{q}^\theta(x_k,x_{k+1},\Delta_k,\zeta_k)}\)` such that 
+
+`$$\class{\orange}{\hat{q}^\theta(x_k,x_{k+1},\Delta_k,\zeta_k)}&gt;0\text{ and } \mathbb{E}[\class{orange}{\hat{q}^\theta(x_k,x_{k+1},\Delta_k,\zeta_k)}] =q^\theta(x_k,x_{k+1},\Delta_k)$$`
+
+`\(\class{orange}{\zeta_k}\)` is a random variable requiring simulation of constrained Brownian bridges.
+--
+
+ 
+### New filtering weights
+`\({\omega_k^i=\frac{g_1^\theta(\xi_k^i)q^\theta(\xi_{k-1}^{I_{k}^i},\xi_k^i, \Delta_{k-1})}{p^\theta(\xi_{k-1}^{I_{k-1}^i},\xi_k^i, \Delta_{k-1})}}\)` is replaced by `\(\class{orange}{\hat{\omega}_k^i}=\frac{g_1^\theta(\xi_k^i)\class{orange}{\hat{q}^\theta(\xi_{k-1}^{I_{k}^i},\xi_k^i, \Delta_{k-1}, \zeta_{k-1})}}{p^\theta(\xi_{k-1}^{I_{k-1}^i},\xi_k^i, \Delta_{k-1})}\)` 
+
+---
+name: POD3
+# Potential based Diffusions as continuous time movement model 
+&lt;img class="logopos_right" src="compute.png" style="height:6%"&gt;
+&lt;img class="logopos_left" src="paw.png" style="height:7%"&gt;
+
+## Sequential method for smoothing distribution : `\(\mathbb{E}( h(X_k, X_{k+1} ) \vert Y_{0:k})\)`.
+
+--
+
+&lt;figure&gt;
+  &lt;img src="Smoother_sampling.png" alt="at the beginning is" style="width:80%" class = "centerimg" /&gt;
+.legend[Particle Filter]
+&lt;/figure&gt;
+
+---
+template: POD3
+
+
+### Main problem
+Backward smoothing requires to sample an ancestor (value of `\(j\)`) with weights:
+`$${\Lambda_{k-1}^{j,i}}= \frac{{\hat{\omega}_{k-1}^j}q^\theta(\xi_{k-1}^j,\xi_k^i, \Delta_{k-1})}
+{\sum_{\ell=1}^N {\hat{\omega}_{k-1}^\ell} q^\theta(\xi_{k-1}^\ell,\xi_k^i, \Delta_{k-1})}.$$`
+
+The probability of `\(\xi_{k-1}^j\)` being the ancestor of `\(\xi_{k}^i\)` under the true dynamics
+
+--
+
+### The solution? (When `\(q^\theta\)` can't be computed) 
+Use the unbiased estimator `\(\class{orange}{\hat{q}^\theta(\xi_{k-1}^{j},\xi_k^i, \Delta_{k-1}, \zeta_i)}\)` as a substitute:
+`$${\hat{\Lambda}_{k-1}^{j,i}}= \frac{\hat{\omega}_{k-1}^j\class{orange}{\hat{q}^\theta(\xi_{k-1}^{j},\xi_k^i, \Delta_{k-1}, \zeta_i)}}{\sum_{\ell=1}^N \hat{\omega}_{k-1}^\ell \class{orange}{\hat{q}^\theta(\xi_{k-1}^{j},\xi_k^i, \Delta_{k-1}, \zeta_i)}}$$`
+
+But  `\(\mathbb{E}({\hat{\Lambda}_{k-1}^{j,i}}) \ne {\Lambda}_{k-1}^{j,i},\)` because of the ratio.
+
+---
+template: POD3
+
+## The final strategy 
+
+* The particle-based, rapid incremental smoother (PaRIS)  algorithm &lt;a name=cite-olsson2017efficient&gt;&lt;/a&gt;([Olsson and Westerborn, 2017](#bib-olsson2017efficient)) provides  an online smoother using a rewriting of the Backward weight and an acceptation/rejection mechanism but depends on `\(q(\xi_{k-1}, \xi_{k})\)`
+
+* The generalized random PaRIS algorithm, in  &lt;a name=cite-gloaguen2018online&gt;&lt;/a&gt;([Gloaguen, Etienne, and Le Corff, 2018b](#bib-gloaguen2018online)), samples using an AR algorithm to avoid the normalisation step  and  an importance sampling approach in &lt;a name=cite-martin2023backward&gt;&lt;/a&gt;([Martin, Étienne, Gloaguen, et al., 2023](#bib-martin2023backward))
+
+---
+template: POD3
+
+A Predator - Prey Lokta Volterra model
+
+.pull-left[
+
+&lt;figure&gt;
+  &lt;img src="Hares.png" alt="at the beginning is" style="width:100%" class = "centerimg" /&gt;
+.legend[Smoothing distribution for a POD Lokta Volterra]
+&lt;/figure&gt;
+]
+
+--
+
+.pull-right[
+.question[Requires a nuclear Power plant to run!]
+
+]
+---
+
 # On going work
 
 ### Some natural extension of the Langevin model useful in movement ecology
@@ -488,7 +593,9 @@ $$d V_t = - \nabla \log \pi{\left(X_t\right)} \, d t  -\frac{\nu^2}{2} V_t + \nu
 
 ### Longer term perspective
 * Collective movement: Cheaper GPS imply  massive deployment. Invest the area of collective movement analysis.
-* Combined sound monitoring
+* Combined with sound monitoring
+
+### Going away from Markovian model ???
 
 
 ---
@@ -526,6 +633,17 @@ Preisler, A. A. Ager, et al.](#cite-brillinger2002employing) (2002).
 "Employing stochastic differential equations to model wildlife motion".
 In: _Bulletin of the Brazilian Mathematical Society_ 33.3, pp. 385-408.
 
+&lt;a name=bib-dechaumaray2022estimation&gt;&lt;/a&gt;[Chaumaray, M. D. R. de, S.
+E. Kolei, and M. Marbac](#cite-dechaumaray2022estimation) (2022).
+_Estimation of the Order of Non-Parametric Hidden Markov Models using
+the Singular Values of an Integral Operator_. arXiv: 2210.03559
+[math.ST].
+
+&lt;a name=bib-fearnhead2008particle&gt;&lt;/a&gt;[Fearnhead, P., O.
+Papaspiliopoulos, and G. Roberts](#cite-fearnhead2008particle) (2008).
+"Particle filters for partially observed diffusions". In: _J. Roy.
+Statist. Soc. Ser. B_ 70.4, pp. 755-777.
+
 &lt;a name=bib-gloaguen2018online&gt;&lt;/a&gt;[Gloaguen, P., M. Etienne, and S. Le
 Corff](#cite-gloaguen2018online) (2018b). "Online sequential Monte
 Carlo smoother for partially observed diffusion processes". In:
@@ -543,27 +661,32 @@ Laidre](#cite-gurarie2009novel) (2009). "A novel method for identifying
 behavioural changes in animal movement data". In: _Ecology Letters_
 12.5, pp. 395-408.
 
-&lt;a name=bib-kessler1997estimation&gt;&lt;/a&gt;[Kessler,
-M.](#cite-kessler1997estimation) (1997). "Estimation of an ergodic
-diffusion from discrete observations". In: _Scandinavian Journal of
-Statistics_ 24.2, pp. 211-229.
-
-&lt;a name=bib-lejay2018maximum&gt;&lt;/a&gt;[Lejay, A. and P.
-Pigato](#cite-lejay2018maximum) (2018). "Maximum likelihood drift
-estimation for a threshold diffusion". In: _Scandinavian Journal of
-Statistics_.
-
 ---
 class: biblio
 count: false
 # Bibliography
 &lt;img class="logopos_right" src="article.png" style="height:6%"&gt;
 
-&lt;a name=bib-martin2021backward&gt;&lt;/a&gt;[Martin, A., M. Etienne, P.
-Gloaguen, et al.](#cite-martin2021backward) (2021). "Backward
-importance sampling for online estimation of state space models".
-working paper or preprint. URL:
-[https://hal.archives-ouvertes.fr/hal-02476102](https://hal.archives-ouvertes.fr/hal-02476102).
+&lt;a name=bib-kessler1997estimation&gt;&lt;/a&gt;[Kessler,
+M.](#cite-kessler1997estimation) (1997). "Estimation of an ergodic
+diffusion from discrete observations". In: _Scandinavian Journal of
+Statistics_ 24.2, pp. 211-229.
+
+&lt;a name=bib-lehericy2019consistent&gt;&lt;/a&gt;[Lehéricy,
+L.](#cite-lehericy2019consistent) (2019). "Consistent order estimation
+for nonparametric hidden Markov models". In: _Bernoulli_ 25, pp.
+464–-498.
+
+&lt;a name=bib-lejay2018maximum&gt;&lt;/a&gt;[Lejay, A. and P.
+Pigato](#cite-lejay2018maximum) (2018). "Maximum likelihood drift
+estimation for a threshold diffusion". In: _Scandinavian Journal of
+Statistics_.
+
+&lt;a name=bib-martin2023backward&gt;&lt;/a&gt;[Martin, A., M. Étienne, P.
+Gloaguen, et al.](#cite-martin2023backward) (2023). "Backward
+Importance Sampling for Online Estimation of State Space Models". In:
+_Journal of Computational and Graphical Statistics_ 0.0, pp. 1-14. DOI:
+[10.1080/10618600.2023.2174125](https://doi.org/10.1080%2F10618600.2023.2174125).
 
 &lt;a name=bib-mcclintock2014discrete&gt;&lt;/a&gt;[McClintock, B. T., D. S.
 Johnson, M. B. Hooten, et al.](#cite-mcclintock2014discrete) (2014).
@@ -580,6 +703,13 @@ Blackwell, et al.](#cite-michelot2019langevin) (2019). "The Langevin
 diffusion as a continuous-time model of animal movement and habitat
 selection". In: _Methods in Ecology and Evolution_.
 
+
+---
+class: biblio
+count: false
+# Bibliography
+&lt;img class="logopos_right" src="article.png" style="height:6%"&gt;
+
 &lt;a name=bib-michelot2016movehmm&gt;&lt;/a&gt;[Michelot, T., R. Langrock, and T.
 A. Patterson](#cite-michelot2016movehmm) (2016). "moveHMM: an R package
 for the statistical modelling of animal movement data using hidden
@@ -590,28 +720,6 @@ Markov models". In: _Methods in Ecology and Evolution_ 7.11, pp.
 Frair, et al.](#cite-morales2004extracting) (2004). "Extracting more
 out of relocation data: building movement models as mixtures of random
 walks". In: _Ecology_ 85.9, pp. 2436-2445.
-
-&lt;a name=bib-nathan2008movement&gt;&lt;/a&gt;[Nathan, R., W. M. Getz, E. Revilla,
-et al.](#cite-nathan2008movement) (2008). "A movement ecology paradigm
-for unifying organismal movement research". In: _Proceedings of the
-National Academy of Sciences_ 105.49, pp. 19052-19059.
-
-
----
-class: biblio
-count: false
-# Bibliography
-&lt;img class="logopos_right" src="article.png" style="height:6%"&gt;
-
-&lt;a name=bib-olsson2017efficient&gt;&lt;/a&gt;[Olsson, J. and J.
-Westerborn](#cite-olsson2017efficient) (2017). "Efficient
-particle-based online smoothing in general hidden Markov models: the
-PaRIS algorithm". In: _Bernoulli_ 23.3, pp. 1951-1996.
-
-&lt;a name=bib-ozaki1992bridge&gt;&lt;/a&gt;[Ozaki, T.](#cite-ozaki1992bridge)
-(1992). "A bridge between nonlinear time series models and nonlinear
-stochastic dynamical systems: a local linearization approach". In:
-_Statistica Sinica_, pp. 113-135.
 
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
