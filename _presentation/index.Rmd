@@ -2,11 +2,11 @@
 title: "(Hidden) Markovian Model for movement ecology "
 author: Marie-Pierre Etienne
 institute: "Processus markoviens, semi-markoviens et leurs applications"
-date: "2022"
+date: "2023"
 csl: "../resources/apa-no-doi-no-issue.csl"
 output:
    xaringan::moon_reader:
-    css: ['metropolis',  'mpe_pres_HDR.css']
+    css: ['metropolis',  'mpe_pres.css']
     lib_dir: libs
     nature:
       ratio: 16:10
@@ -244,42 +244,42 @@ name:signal
 .pull-right[
 ## Accounting for internal states
 
- * Classically addressed with Hidden Markov Model `r Citep(myBib, c("morales2004extracting", "walker2010pioneer", "gurarie2009novel", "michelot2016movehmm"))`
+ * Change point detection approach. `r Citep(myBib, "patin2019identifying")` based on `r Citep(myBib, "picard2007segmentation")`
 
- * or change point detection approach. `r Citep(myBib, "patin2019identifying")` based on `r Citep(myBib, "picard2007segmentation")`
+ * More classically addressed with Hidden Markov Model `r Citep(myBib, c("morales2004extracting", "walker2010pioneer", "gurarie2009novel", "michelot2016movehmm"))`
 ]
+
+$$Y_k \vert S_{k} = i \overset{i.i.d}{\sim} \mathcal{L}(\theta_i),$$
+$$S_0 \sim \nu_0, \quad \mathbb{P}(S_k =j \vert S_k = i) = \pi_{ij}$$
+--
+
+In `r Citep(myBib, c( "michelot2016movehmm"))`, 
+
+$$\mathbb{P}(S_k =j \vert S_k = i, Cov_{i}) \propto \exp \left \lbrace \beta Cov_i \right \rbrace$$
+
 
 ---
-
 template: signal
 
+### Choosing the number of hidden states
+
+* Typically using likelihood based criteria  AIC, BIC ICL 
 
 
-.pull-left[
-<figure>
-  <img src="segmentation.png" alt="at the beginning is" style="width:90%" class = "centerimg" />
-.legend[Change point detection `r Citep(myBib, "patin2019identifying")`]
-</figure>
-]
+.question[`r Citep(myBib, "pohle2017selecting")` advocate that likelihood based criteria tend to overestimate the number of components and this number should be chosen according to biological considerations.]
 
 
---
-.pull-right[
-<figure>
-  <img src="seg_classification.png" alt="at the beginning is" style="width:90%" class = "centerimg" />
- .legend[Change point detection and classification `r Citep(myBib, "patin2019identifying")`]
-</figure>
-]
+The main suspect : the strong parametric form of the emission model in classical HMM model in ecology 
 
 --
 
-In  `r Citep(myBib, "patin2019identifying")` : a direct extension to simultaneous segmentation for home range shift.
---
+A new hope: new non parametric approaches have been proposed `r Citep(myBib, "lehericy2019consistent", "dechaumaray2022estimation")`
 
+
+--
 
 .question[Movement path is more than time series, importance of considering the space.]
 
---
 
 .center[.care[Proposing ecologically meaningful movement models]]
 
@@ -319,13 +319,13 @@ $q(x_t, x_{t+s})$ which is not the case in general.
 # Potential based Diffusions as continuous time movement model 
 
 `r Citet(myBib,'brillinger2002employing')` propose a flexible framework
-$$dX_s = -\nabla H(X_s) ds + \gamma dW_s, \quad X_0=x_0.$$
+$$dX_s = -\nabla H_{\theta}(X_s) ds + \gamma dW_s, \quad X_0=x_0.$$
 
-but no explicit transitions $q(x_t, x_{t+s})$
+but no explicit transitions $q_{\theta}(x_t, x_{t+s})$
 
 --
 
-In `r Citet(myBib,'Gloaguen2018stochastic')`, as part  of *P. Gloaguen's PhD*, explore $H(X_s) = \sum_{k=1}^K \pi_k \varphi_k(X_s),$
+In `r Citet(myBib,'Gloaguen2018stochastic')`, as part  of *P. Gloaguen's PhD*, explore $H_{\theta}(X_s) = \sum_{k=1}^K \pi_k \varphi_k(X_s),$
 
 .pull-left[
 <figure>
@@ -344,38 +344,6 @@ In `r Citet(myBib,'Gloaguen2018stochastic')`, as part  of *P. Gloaguen's PhD*, e
 
 ---
 
-# Potential based Diffusions as continuous time movement model 
-<img class="logopos_right" src="compute.png" style="height:6%">
-<img class="logopos_left" src="paw.png" style="height:7%">
-
-
-## Partially observed SDE 
-.pull-lefts[
-  <img src="path_4.png" alt="at the beginning is" style="width:70%" class = "centerimg" />
-]
-
---
-
-.pull-rights[
-Let  $Y_k$ be the recorded position $s_k$, a noisy observation of the true position $X_k$:
-
-$$dX_s = b(X_s) ds + \gamma dW_s, \quad X_0=x_0; \quad Y_k \overset{ind}{\sim} \mathcal{L} (X_k, \theta{o}).$$
-]
-
---
-
-### Additive smoothing distributions for the E Step
-
-$$\sum_{k=0}^{n-1}\mathbb{E}( h(X_k, X_{k+1}) \vert Y_{0:n})$$
-
---
-* The particle-based, rapid incremental smoother (PaRIS)  algorithm `r Citep(myBib, "olsson2017efficient")` provides  an online smoother using a rewriting of the Backward weight and an acceptation/rejection mechanism but depends on $q(\xi_{k-1}, \xi_{k})$
-
-* The generalized random PaRIS algorithm, in  `r Citep(myBib, "gloaguen2018online")`, uses simple Euler approximation to propose the particles and uses a General Poisson Estimator to replace $q(\xi_{k-1}, \xi_{k})$ with an unbiased estimator.
-
---
-
-.care[Restrictive constraints on the drift and the diffusion term], are relaxed in `r Citep(myBib, "martin2021backward")`.
 
 
 ---
@@ -422,7 +390,7 @@ $$\sum_{k=0}^{n-1}\mathbb{E}( h(X_k, X_{k+1}) \vert Y_{0:n})$$
 ## Flexible movement model for habitat preference
 
 A classical choice of **resource selection function**, (i.e stationary distribution including covariates)
-$$\pi{\left(x \vert \beta\right)} \varpropto  \exp\left(\sum_{j=1}^J \beta_j c_j (x) \right). $$ 
+$$\pi{\left(x \vert \theta\right)} \varpropto  \exp\left(\sum_{j=1}^J \theta_j c_j (x) \right). $$ 
 
 Diffusion, under regularity condition admits a stationary  distribution.  
 
@@ -430,14 +398,14 @@ Diffusion, under regularity condition admits a stationary  distribution.
 
 Combining the ideas of `r Citep(myBib, "michelot2019linking")`, and  `r Citep(myBib, "brillinger2002employing")` lead to the Langevin diffusion as movement model, 
 $$
-	d X_t = \frac{\gamma^2}{2} \nabla \log \pi{\left(X_t\right)} \, d t + \gamma \,d W_t,\quad X_0 =x_0.
+	d X_t = \frac{\gamma^2}{2} \nabla \log \pi_{\theta}{\left(X_t\right)} \, d t + \gamma \,d W_t,\quad X_0 =x_0.
 $$
 --
 
 Using Euler approximation 
 
 $$	X_{i+1} \vert \lbrace X_i = x_i \rbrace = 
-    	x_i + \frac{\gamma^2 \Delta_i}{2} \sum_{j=1}^J \beta_j \nabla c_j(x_i) + \sqrt{\Delta_i}  \varepsilon_{i+1},\quad 
+    	x_i + \frac{\gamma^2 \Delta_i}{2} \sum_{j=1}^J \theta_j \nabla c_j(x_i) + \sqrt{\Delta_i}  \varepsilon_{i+1},\quad 
     	\varepsilon_{i+1} \overset{ind}{\sim} N \left( {0} , \gamma^2 \boldsymbol{I}_d \right),$$
 
 leads to a simple linear model published in `r Citet(myBib,"michelot2019langevin")`.
@@ -471,7 +439,143 @@ leads to a simple linear model published in `r Citet(myBib,"michelot2019langevin
 --
 
 .small[ On going work on Sea birds in the Mediteranean sea and Roe deer next to Toulouse]
+
 ---
+name: POD
+# Potential based Diffusions as continuous time movement model 
+<img class="logopos_right" src="compute.png" style="height:6%">
+<img class="logopos_left" src="paw.png" style="height:7%">
+
+
+## Partially observed SDE 
+.pull-left[
+  <img src="path_4.png" alt="at the beginning is" style="width:70%" class = "centerimg" />
+]
+
+
+.pull-right[
+
+Let  $Y_k$ be the recorded position $s_k$, a noisy observation of the true position $X_k$:
+
+$$dX_s = b_{\theta}(X_s) ds + \gamma dW_s, \quad X_0=x_0;$$
+$$Y_k \overset{ind}{\sim} g_{\theta_o} (X_k).$$
+]
+
+--
+
+<figure>
+  <img src="DAG.png" alt="at the beginning is" style="width:80%" class = "centerimg" />
+.legend[DAG representation]
+</figure>
+
+
+---
+template:POD
+
+### Estimation key quantity : additive smoothing distributions in E Step
+
+$$\sum_{k=0}^{n-1}\mathbb{E}( h(X_k, X_{k+1}) \vert Y_{0:n})$$
+---
+name: POD2
+# Potential based Diffusions as continuous time movement model 
+<img class="logopos_right" src="compute.png" style="height:6%">
+<img class="logopos_left" src="paw.png" style="height:7%">
+
+## Sequential method for fltering distribution : $\mathbb{E}( M(X_k) \vert Y_{0:k})$.
+
+--
+<figure>
+  <img src="Filter.png" alt="at the beginning is" style="width:80%" class = "centerimg" />
+.legend[Particle Filter]
+</figure>
+
+---
+template: POD2
+
+###  The problem with POD processes
+
+* $q^\theta(x, y, \Delta)$ can't be computed (even when $\theta$ is known);
+* This quantity is crucial for weights computation.
+
+--
+
+### General Poisson estimator ( `r Citet(myBib, "fearnhead2008particle")` )
+
+Under some assumptions, there exists an unbiased estimator $\class{\orange}{\hat{q}^\theta(x_k,x_{k+1},\Delta_k,\zeta_k)}$ such that 
+
+$$\class{\orange}{\hat{q}^\theta(x_k,x_{k+1},\Delta_k,\zeta_k)}>0\text{ and } \mathbb{E}[\class{orange}{\hat{q}^\theta(x_k,x_{k+1},\Delta_k,\zeta_k)}] =q^\theta(x_k,x_{k+1},\Delta_k)$$
+
+$\class{orange}{\zeta_k}$ is a random variable requiring simulation of constrained Brownian bridges.
+--
+
+ 
+### New filtering weights
+${\omega_k^i=\frac{g_1^\theta(\xi_k^i)q^\theta(\xi_{k-1}^{I_{k}^i},\xi_k^i, \Delta_{k-1})}{p^\theta(\xi_{k-1}^{I_{k-1}^i},\xi_k^i, \Delta_{k-1})}}$ is replaced by $\class{orange}{\hat{\omega}_k^i}=\frac{g_1^\theta(\xi_k^i)\class{orange}{\hat{q}^\theta(\xi_{k-1}^{I_{k}^i},\xi_k^i, \Delta_{k-1}, \zeta_{k-1})}}{p^\theta(\xi_{k-1}^{I_{k-1}^i},\xi_k^i, \Delta_{k-1})}$ 
+
+---
+name: POD3
+# Potential based Diffusions as continuous time movement model 
+<img class="logopos_right" src="compute.png" style="height:6%">
+<img class="logopos_left" src="paw.png" style="height:7%">
+
+## Sequential method for smoothing distribution : $\mathbb{E}( h(X_k, X_{k+1} ) \vert Y_{0:k})$.
+
+--
+
+<figure>
+  <img src="Smoother_sampling.png" alt="at the beginning is" style="width:80%" class = "centerimg" />
+.legend[Particle Filter]
+</figure>
+
+---
+template: POD3
+
+
+### Main problem
+Backward smoothing requires to sample an ancestor (value of $j$) with weights:
+$${\Lambda_{k-1}^{j,i}}= \frac{{\hat{\omega}_{k-1}^j}q^\theta(\xi_{k-1}^j,\xi_k^i, \Delta_{k-1})}
+{\sum_{\ell=1}^N {\hat{\omega}_{k-1}^\ell} q^\theta(\xi_{k-1}^\ell,\xi_k^i, \Delta_{k-1})}.$$
+
+The probability of $\xi_{k-1}^j$ being the ancestor of $\xi_{k}^i$ under the true dynamics
+
+--
+
+### The solution? (When $q^\theta$ can't be computed) 
+Use the unbiased estimator $\class{orange}{\hat{q}^\theta(\xi_{k-1}^{j},\xi_k^i, \Delta_{k-1}, \zeta_i)}$ as a substitute:
+$${\hat{\Lambda}_{k-1}^{j,i}}= \frac{\hat{\omega}_{k-1}^j\class{orange}{\hat{q}^\theta(\xi_{k-1}^{j},\xi_k^i, \Delta_{k-1}, \zeta_i)}}{\sum_{\ell=1}^N \hat{\omega}_{k-1}^\ell \class{orange}{\hat{q}^\theta(\xi_{k-1}^{j},\xi_k^i, \Delta_{k-1}, \zeta_i)}}$$
+
+But  $\mathbb{E}({\hat{\Lambda}_{k-1}^{j,i}}) \ne {\Lambda}_{k-1}^{j,i},$ because of the ratio.
+
+---
+template: POD3
+
+## The final strategy 
+
+* The particle-based, rapid incremental smoother (PaRIS)  algorithm `r Citep(myBib, "olsson2017efficient")` provides  an online smoother using a rewriting of the Backward weight and an acceptation/rejection mechanism but depends on $q(\xi_{k-1}, \xi_{k})$
+
+* The generalized random PaRIS algorithm, in  `r Citep(myBib, "gloaguen2018online")`, samples using an AR algorithm to avoid the normalisation step  and  an importance sampling approach in `r Citep(myBib, "martin2023backward")`
+
+---
+template: POD3
+
+A Predator - Prey Lokta Volterra model
+
+.pull-left[
+
+<figure>
+  <img src="Hares.png" alt="at the beginning is" style="width:100%" class = "centerimg" />
+.legend[Smoothing distribution for a POD Lokta Volterra]
+</figure>
+]
+
+--
+
+.pull-right[
+.question[Requires a nuclear Power plant to run!]
+
+]
+---
+
 # On going work
 
 ### Some natural extension of the Langevin model useful in movement ecology
@@ -498,7 +602,9 @@ $$d V_t = - \nabla \log \pi{\left(X_t\right)} \, d t  -\frac{\nu^2}{2} V_t + \nu
 
 ### Longer term perspective
 * Collective movement: Cheaper GPS imply  massive deployment. Invest the area of collective movement analysis.
-* Combined sound monitoring
+* Combined with sound monitoring
+
+### Going away from Markovian model ???
 
 
 ---
