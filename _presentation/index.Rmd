@@ -426,9 +426,7 @@ Diffusion, under regularity condition admits a stationary  distribution.
 --
 
 Combining the ideas of `r Citep(myBib, "michelot2019linking")`, and  `r Citep(myBib, "brillinger2002employing")` lead to the Langevin diffusion as movement model, 
-$$
-	d X_t = \frac{\gamma^2}{2} \nabla \log \pi_{\theta}{\left(X_t\right)} \, d t + \gamma \,d W_t,\quad X_0 =x_0.
-$$
+$$d X_t = \frac{\gamma^2}{2} \nabla \log \pi_{\theta}{\left(X_t\right)} \, d t + \gamma \,d W_t,\quad X_0 =x_0.$$
 --
 
 Using Euler approximation 
